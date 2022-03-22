@@ -84,7 +84,7 @@ public class PersistenceFile extends HttpServlet{
 
      if (error.length() == 0){
        PrintWriter entriesPrintWriter = new PrintWriter(new FileWriter(RESOURCE_FILE, true), true);
-       entriesPrintWriter.println(name+VALUE_SEPARATOR+age);
+       entriesPrintWriter.println(name+VALUE_SEPARATOR+age+VALUE_SEPARATOR+city);
        entriesPrintWriter.close();
 
        PrintHead(out);
@@ -92,7 +92,7 @@ public class PersistenceFile extends HttpServlet{
        PrintTail(out);
      }else{
        PrintHead(out);
-       PrintBody(out, name, age, error);
+       PrintBody(out, name, age, city, error);
        PrintTail(out);
      }
   }
@@ -107,7 +107,7 @@ public class PersistenceFile extends HttpServlet{
      response.setContentType("text/html");
      PrintWriter out = response.getWriter();
      PrintHead(out);
-     PrintBody(out, "", "", "");
+     PrintBody(out, "", "", "", "");
      PrintTail(out);
   }
 
@@ -132,7 +132,7 @@ public class PersistenceFile extends HttpServlet{
   /** *****************************************************
    *  Prints the <BODY> of the HTML page
   ********************************************************* */
-  private void PrintBody (PrintWriter out, String name, String age, String error){
+  private void PrintBody (PrintWriter out, String name, String age, String city, String error){
      out.println("<body onLoad=\"setFocus()\">");
      out.println("<p>");
      out.println("A simple example that demonstrates how to persist data to a file");
@@ -164,7 +164,7 @@ public class PersistenceFile extends HttpServlet{
      out.println("  <tr>");
      out.println("   <td>City:</td>");
      out.println("   <td><input type=\"text\" name=\""+Data.CITY.name()
-      +"\" value=\""+name+"\" size=30 required></td>");
+      +"\" value=\""+city+"\" size=30 required></td>");
      out.println("  </tr>");
 
      out.println(" </table>");
