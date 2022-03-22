@@ -1,3 +1,5 @@
+package servlet;
+
 /** *****************************************************************
     twoButtons.java   servlet example
 
