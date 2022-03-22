@@ -1,4 +1,5 @@
-//package popcorn;
+// package popcorn;
+package servlet;
 
 //Import Servlet Libraries
 import javax.servlet.*;
