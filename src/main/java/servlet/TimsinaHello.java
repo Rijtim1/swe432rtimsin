@@ -1,3 +1,5 @@
+package servlet;
+
 // Simple example servlet from slides
 import javax.servlet.*; // servlet library
 import javax.servlet.http.*; // servlet library
