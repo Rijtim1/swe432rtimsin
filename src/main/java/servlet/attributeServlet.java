@@ -85,7 +85,7 @@ public void doGet (HttpServletRequest request, HttpServletResponse response)
       out.println(att_city);
    } //end while
 
-   out.print("<br><a href=/offutt/servlet/sessionLifeCycle?action=invalidate>Invalidate the session</a>");
+   out.print("<br><a href=/lifeCycle?action=invalidate>Invalidate the session</a>");
    out.println("</body>");
    out.println("</html>");
    out.close();
