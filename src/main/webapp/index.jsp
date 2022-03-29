@@ -23,6 +23,7 @@
     <button onclick="window.location.assign(servletURL+'/database');">Database persistence servlet </button>
     <button onclick="window.location.assign(servletURL+'/hello');">Hello Servlet</button>
     <button onclick="window.location.assign(servletURL+'/attribute');">Attribute Servlet</button>
+    <button onclick="window.location.assign(servletURL+'/lifeCycle');">Life cycle</button>
   </div>
 </body>
 </html>
