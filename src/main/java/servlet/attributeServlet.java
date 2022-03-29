@@ -33,7 +33,6 @@ public void doGet (HttpServletRequest request, HttpServletResponse response)
       if ((name != null && name.length() > 0) && (value != null && value.length() > 0) && (city != null && city.length() > 0))
       {
          session.setAttribute(name, value);
-         session.setAttribute(name, city);
       }
    }
 
@@ -86,6 +85,7 @@ public void doGet (HttpServletRequest request, HttpServletResponse response)
       out.println(att_city);
    } //end while
 
+   out.print("<a href=/offutt/servlet/sessionLifeCycle?action=invalidate>Invalidate the session</a>");
    out.println("</body>");
    out.println("</html>");
    out.close();
