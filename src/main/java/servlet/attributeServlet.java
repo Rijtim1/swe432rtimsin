@@ -2,14 +2,14 @@
 package servlet;
 // Import Servlet Libraries
 import javax.servlet.*;
-// import javax.servlet.annotation.WebServlet;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 // Import Java Libraries
 import java.io.*;
 import java.util.Enumeration;
 
-// @WebServlet(name = "attributeServlet", urlPatterns = {"/attribute"})
+@WebServlet(name = "attributeServlet", urlPatterns = {"/attribute"})
 public class attributeServlet extends HttpServlet
 {
    
@@ -53,7 +53,7 @@ public void doGet (HttpServletRequest request, HttpServletResponse response)
    out.println("Enter name and value of an attribute");
 
    // String url = response.encodeURL ("offutt/servlet/attributeServlet");
-   String url = response.encodeURL("attributeServlet");
+   String url = response.encodeURL("/attribute/attributeServlet");
    out.println("<form action=\"" + url + "\" method=\"GET\">");
    out.println(" Name: ");
    out.println(" <input type=\"text\" size=\"10\" name=\"attrib_name\">");
