@@ -1,6 +1,7 @@
 package servlet;
 // Written by David Gonzalez, April 2020
 // Modified by Jeff Offutt
+// then modified again by Rijan Timsina
 // Built to deploy in github with Heroku
 
 import java.io.BufferedReader;
@@ -63,7 +64,7 @@ public class PersistenceFile extends HttpServlet{
        age = "";
      }else{
           try{
-            Integer ageInteger =new Integer(age);
+            Integer ageInteger = Integer.parseInt(age);
             if(ageInteger<1){
                 error+= "<li>Age must be an integer greater than 0.</li>";
                 age = "";
