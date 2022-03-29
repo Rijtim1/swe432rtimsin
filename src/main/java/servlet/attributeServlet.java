@@ -32,8 +32,8 @@ public void doGet (HttpServletRequest request, HttpServletResponse response)
    {
       if ((name != null && name.length() > 0) && (value != null && value.length() > 0) && (city != null && city.length() > 0))
       {
-         session.setAttribute(name, value);
-         session.setAttribute("city", city);
+         String myArray[] = {value, city};
+         session.setAttribute(name, myArray);
       }
    }
 
@@ -75,15 +75,15 @@ public void doGet (HttpServletRequest request, HttpServletResponse response)
    while (e.hasMoreElements())
    {
       String att_name  = (String) e.nextElement();
-      String att_value = (String) session.getAttribute(att_name);
-      String att_city = (String) session.getAttribute("city");
+      String[] att_value = (String[]) session.getAttribute(att_name);
+      // String att_city = (String) session.getAttribute("city");
 
       out.print  ("<br><b>Name:</b> ");
       out.println(att_name);
       out.print  ("<br><b>Value:</b> ");
-      out.println(att_value);
+      out.println(att_value[0]);
       out.print  ("<br><b>City:</b> ");
-      out.println(att_city);
+      out.println(att_value[1]);
    } //end while
 
    out.print("<br><a href=/lifeCycle?action=invalidate>Invalidate the session</a>");
