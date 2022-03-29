@@ -2,14 +2,14 @@
 package servlet;
 // Import Servlet Libraries
 import javax.servlet.*;
-import javax.servlet.annotation.WebServlet;
+// import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 // Import Java Libraries
 import java.io.*;
 import java.util.Enumeration;
 
-@WebServlet(name = "attributeServlet", urlPatterns = {"/attribute"})
+// @WebServlet(name = "attributeServlet", urlPatterns = {"/attribute"})
 public class attributeServlet extends HttpServlet
 {
    
