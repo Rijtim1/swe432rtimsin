@@ -76,14 +76,14 @@ public void doGet (HttpServletRequest request, HttpServletResponse response)
    {
       String att_name  = (String) e.nextElement();
       String att_value = (String) session.getAttribute(att_name);
-      // String att_city = (String) session.getAttribute("city");
+      String att_city = (String) session.getAttribute("city");
 
       out.print  ("<br><b>Name:</b> ");
       out.println(att_name);
       out.print  ("<br><b>Value:</b> ");
       out.println(att_value);
       out.print  ("<br><b>City:</b> ");
-      out.println(city);
+      out.println(att_city);
    } //end while
 
    out.print("<br><a href=/lifeCycle?action=invalidate>Invalidate the session</a>");
