@@ -32,7 +32,8 @@ public void doGet (HttpServletRequest request, HttpServletResponse response)
    {
       if ((name != null && name.length() > 0) && (value != null && value.length() > 0) && (city != null && city.length() > 0))
       {
-         session.setAttribute(name, value);
+         String myArray[] = {value, city};
+         session.setAttribute(name, myArray);
       }
    }
 
