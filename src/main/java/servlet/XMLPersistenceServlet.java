@@ -134,7 +134,7 @@ public class XMLPersistenceServlet extends HttpServlet{
     }
 
     private List<Entry> getAll(){
-      List entries = new ArrayList();
+      List<Entry> entries = new ArrayList<Entry>();
 
       try{
 
@@ -189,8 +189,6 @@ public class XMLPersistenceServlet extends HttpServlet{
         e.printStackTrace();
       }catch (XMLStreamException e) {
         e.printStackTrace();
-      }catch(IOException ioException){
-        ioException.printStackTrace();
       }
 
       return entries;
@@ -238,7 +236,7 @@ public class XMLPersistenceServlet extends HttpServlet{
        rawAge = "";
      }else{
           try{
-            age =new Integer(rawAge);
+            age = Integer.parseInt(rawAge);
             if(age<1){
                 error+= "<li>Age must be an integer greater than 0.</li>";
                 rawAge = "";
