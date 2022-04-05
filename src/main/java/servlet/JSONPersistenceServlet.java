@@ -11,12 +11,6 @@ import java.util.ArrayList;
 // Built to deploy in github with Heroku
 import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 /*
 requires Gson in your pom.xml
 <dependencies>
@@ -31,6 +25,12 @@ requires Gson in your pom.xml
 ...
 */
 import com.google.gson.Gson;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "JSONPersistence", urlPatterns = {"/json"})
 public class JSONPersistenceServlet extends HttpServlet{
