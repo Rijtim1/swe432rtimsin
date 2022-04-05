@@ -1,13 +1,16 @@
 // From "Professional Java Server Programming", Patzer et al.,
 package servlet;
-// Import Servlet Libraries
-import javax.servlet.*;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-
 // Import Java Libraries
-import java.io.*;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Enumeration;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet(name = "attributeServlet", urlPatterns = {"/attribute"})
 public class attributeServlet extends HttpServlet
@@ -23,6 +26,7 @@ public void doGet (HttpServletRequest request, HttpServletResponse response)
    String value  = request.getParameter("attrib_value");
    String city   = request.getParameter("attrib_city");
    String remove = request.getParameter("attrib_remove");
+   // ahhhhhh
 
    if (remove != null && remove.equals("on"))
    {

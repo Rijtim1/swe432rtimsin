@@ -1,10 +1,13 @@
 package servlet;
 
-// Simple example servlet from slides
-import javax.servlet.*; // servlet library
-import javax.servlet.http.*; // servlet library
-import java.io.*;
-import javax.servlet.annotation.WebServlet;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 // The @WebServletannotation is used to declare a servlet
 @WebServlet(name = "FirstServlet", urlPatterns = {"/hello"})
