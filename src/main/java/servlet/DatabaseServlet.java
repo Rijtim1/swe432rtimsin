@@ -15,12 +15,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 /*
 requires Postgresql and Jsoup in your pom.xml
 <dependencies>
@@ -42,6 +36,12 @@ requires Postgresql and Jsoup in your pom.xml
 */
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "DBPersistence", urlPatterns = {"/database"})
 public class DatabaseServlet extends HttpServlet{
