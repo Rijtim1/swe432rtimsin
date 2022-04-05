@@ -26,6 +26,7 @@ public void doGet (HttpServletRequest request, HttpServletResponse response)
    String value  = request.getParameter("attrib_value");
    String city   = request.getParameter("attrib_city");
    String remove = request.getParameter("attrib_remove");
+   // ahhhhhh
 
    if (remove != null && remove.equals("on"))
    {
