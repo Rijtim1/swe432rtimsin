@@ -157,7 +157,7 @@ public class DatabaseServlet extends HttpServlet{
        rawAge = "";
      }else{
           try{
-            age =new Integer(rawAge);
+            age = Integer.parseInt(rawAge);
             if(age<1){
                 error+= "<li>Age must be an integer greater than 0.</li>";
                 rawAge = "";
