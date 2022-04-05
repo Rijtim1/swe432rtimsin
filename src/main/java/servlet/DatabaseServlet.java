@@ -5,7 +5,6 @@ package servlet;
 // IF STUCK, READ THE TUTORIAL:
 //https://github.com/luminaxster/swe432tomcat#add-database-persistence-to-your-heroku-app
 
-<<<<<<< HEAD
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URISyntaxException;
@@ -16,8 +15,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-=======
->>>>>>> parent of d5baa7e (import optimization)
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /*
 requires Postgresql and Jsoup in your pom.xml
 <dependencies>
@@ -39,39 +42,6 @@ requires Postgresql and Jsoup in your pom.xml
 */
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
-
-<<<<<<< HEAD
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-=======
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.io.IOException;
-import java.io.FileNotFoundException;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.net.URISyntaxException;
-
-
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.annotation.WebServlet;
->>>>>>> parent of d5baa7e (import optimization)
 
 @WebServlet(name = "DBPersistence", urlPatterns = {"/database"})
 public class DatabaseServlet extends HttpServlet{
