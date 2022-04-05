@@ -1,9 +1,21 @@
 package servlet;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 // Written by David Gonzalez, April 2020
 // Modified by Jeff Offutt
 // Built to deploy in github with Heroku
 import java.util.List;
-import java.util.ArrayList;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /*
 requires Gson in your pom.xml
@@ -19,21 +31,6 @@ requires Gson in your pom.xml
 ...
 */
 import com.google.gson.Gson;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.io.IOException;
-import java.io.FileNotFoundException;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.annotation.WebServlet;
 
 @WebServlet(name = "JSONPersistence", urlPatterns = {"/json"})
 public class JSONPersistenceServlet extends HttpServlet{
