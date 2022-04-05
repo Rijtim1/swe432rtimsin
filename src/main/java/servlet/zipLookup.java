@@ -7,13 +7,13 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.gson.Gson;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import com.google.gson.Gson;
 
 // Used in https://codesandbox.io/s/swe-432-react-popcorn-sales-k3b9i?file=/src/popcorn.js
 // Part of the popcorn Ajax example.
