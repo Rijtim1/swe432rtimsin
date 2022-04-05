@@ -20,60 +20,54 @@ import com.google.gson.Gson;
 // Part of the popcorn Ajax example.
 // The response software component.
 // Called from the JS with a zipcode, returns a city and state
-@WebServlet(name = "zipLookup", urlPatterns = {"/zipLookup"})
-public class zipLookup extends HttpServlet
-{
-  private Map<String, String> zipCityState;
+@WebServlet(name = "zipLookup", urlPatterns = { "/zipLookup" })
+public class zipLookup extends HttpServlet {
+   private Map<String, String> zipCityState;
 
    public void processRequest(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException
-   {
+         throws ServletException, IOException {
       // enable external requests
       response.setHeader("Access-Control-Allow-Origin", "*");
       response.setHeader("Access-Control-Allow-Methods", "*");
       response.setHeader("Access-Control-Allow-Headers", "*");
-      
+
       response.setContentType("aplication/json");
-     
+
       PrintWriter out = response.getWriter();
 
       String zip = request.getParameter("zip");
       String cityst = zipCityState.get(zip);
-     
+
       String state = null;
       String city = null;
-      
+
       Map<String, String> data = new HashMap<String, String>();
-      
+
       if (cityst != null) {
          String[] stateAndCity = cityst.split(", ");
          state = stateAndCity[0];
          city = stateAndCity[1];
       }
-      
+
       data.put("state", state);
       data.put("city", city);
       out.print(new Gson().toJson(data));
       out.close();
    }
 
-    // Method doPost - just calls processRequest
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
-       processRequest(request, response);
-    }
+   // Method doPost - just calls processRequest
+   protected void doPost(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
+      processRequest(request, response);
+   }
 
-    // Method doGet - just calls processRequest
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
-       processRequest(request, response);
-    }
+   // Method doGet - just calls processRequest
+   protected void doGet(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
+      processRequest(request, response);
+   }
 
-
-   public void init()
-   {
+   public void init() {
       // Create and initialize the Mapping
       zipCityState = new HashMap<String, String>();
       // From http://www.census.gov/tiger/tms/gazetteer/zips.txt
@@ -1737,5 +1731,5 @@ public class zipLookup extends HttpServlet
       zipCityState.put("24656", "VA, VANSANT");
       zipCityState.put("24657", "VA, WHITEWOOD");
 
-   }  // end init()
+   } // end init()
 }

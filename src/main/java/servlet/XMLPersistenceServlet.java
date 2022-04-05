@@ -1,4 +1,5 @@
 package servlet;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -28,14 +29,16 @@ import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
-@WebServlet(name = "XMLPersistence", urlPatterns = {"/xml"})
-public class XMLPersistenceServlet extends HttpServlet{
-  static enum Data {NAME, AGE, ENTRY, ENTRIES};
+@WebServlet(name = "XMLPersistence", urlPatterns = { "/xml" })
+public class XMLPersistenceServlet extends HttpServlet {
+  static enum Data {
+    NAME, AGE, ENTRY, ENTRIES
+  };
 
   static String RESOURCE_FILE = "entries.xml";
 
-  static String Domain  = "";
-  static String Path    = "/";
+  static String Domain = "";
+  static String Path = "/";
   static String Servlet = "xml";
 
   // Button labels
@@ -58,27 +61,27 @@ public class XMLPersistenceServlet extends HttpServlet{
     private XMLEvent ENTRY_START = null;
     private XMLEvent ENTRY_END = null;
 
-
-    public EntryManager(){
+    public EntryManager() {
       eventFactory = XMLEventFactory.newInstance();
       LINE_END = eventFactory.createDTD("\n");
       LINE_TAB = eventFactory.createDTD("\t");
 
       ENTRIES_START = eventFactory.createStartElement(
-        "","", Data.ENTRIES.name());
-      ENTRIES_END =eventFactory.createEndElement(
-        "", "", Data.ENTRIES.name());
+          "", "", Data.ENTRIES.name());
+      ENTRIES_END = eventFactory.createEndElement(
+          "", "", Data.ENTRIES.name());
       ENTRY_START = eventFactory.createStartElement(
-        "","", Data.ENTRY.name());
-      ENTRY_END =eventFactory.createEndElement(
-        "", "", Data.ENTRY.name());
+          "", "", Data.ENTRY.name());
+      ENTRY_END = eventFactory.createEndElement(
+          "", "", Data.ENTRY.name());
     }
+
     public void setFilePath(String filePath) {
       this.filePath = filePath;
     }
 
     public List<Entry> save(String name, Integer age)
-      throws FileNotFoundException, XMLStreamException{
+        throws FileNotFoundException, XMLStreamException {
       List<Entry> entries = getAll();
       Entry newEntry = new Entry();
       newEntry.name = name;
@@ -87,7 +90,7 @@ public class XMLPersistenceServlet extends HttpServlet{
 
       XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
       XMLEventWriter eventWriter = outputFactory
-              .createXMLEventWriter(new FileOutputStream(filePath));
+          .createXMLEventWriter(new FileOutputStream(filePath));
 
       eventWriter.add(eventFactory.createStartDocument());
       eventWriter.add(LINE_END);
@@ -95,7 +98,7 @@ public class XMLPersistenceServlet extends HttpServlet{
       eventWriter.add(ENTRIES_START);
       eventWriter.add(LINE_END);
 
-      for(Entry entry: entries){
+      for (Entry entry : entries) {
         addEntry(eventWriter, entry.name, entry.age);
       }
 
@@ -108,18 +111,18 @@ public class XMLPersistenceServlet extends HttpServlet{
     }
 
     private void addEntry(XMLEventWriter eventWriter, String name,
-            Integer age) throws XMLStreamException {
-        eventWriter.add(ENTRY_START);
-        eventWriter.add(LINE_END);
-        createNode(eventWriter, Data.NAME.name(), name);
-        createNode(eventWriter, Data.AGE.name(), String.valueOf(age));
-        eventWriter.add(ENTRY_END);
-        eventWriter.add(LINE_END);
+        Integer age) throws XMLStreamException {
+      eventWriter.add(ENTRY_START);
+      eventWriter.add(LINE_END);
+      createNode(eventWriter, Data.NAME.name(), name);
+      createNode(eventWriter, Data.AGE.name(), String.valueOf(age));
+      eventWriter.add(ENTRY_END);
+      eventWriter.add(LINE_END);
 
     }
 
     private void createNode(XMLEventWriter eventWriter, String name,
-          String value) throws XMLStreamException {
+        String value) throws XMLStreamException {
       StartElement sElement = eventFactory.createStartElement("", "", name);
       eventWriter.add(LINE_TAB);
       eventWriter.add(sElement);
@@ -133,13 +136,13 @@ public class XMLPersistenceServlet extends HttpServlet{
 
     }
 
-    private List<Entry> getAll(){
+    private List<Entry> getAll() {
       List<Entry> entries = new ArrayList<Entry>();
 
-      try{
+      try {
 
         File file = new File(filePath);
-        if(!file.exists()){
+        if (!file.exists()) {
           return entries;
         }
 
@@ -153,224 +156,223 @@ public class XMLPersistenceServlet extends HttpServlet{
           XMLEvent event = eventReader.nextEvent();
 
           if (event.isStartElement()) {
-              StartElement startElement = event.asStartElement();
-              if (startElement.getName().getLocalPart()
+            StartElement startElement = event.asStartElement();
+            if (startElement.getName().getLocalPart()
                 .equals(Data.ENTRY.name())) {
-                  entry = new Entry();
-              }
+              entry = new Entry();
+            }
 
-              if (event.isStartElement()) {
-                  if (event.asStartElement().getName().getLocalPart()
-                          .equals(Data.NAME.name())) {
-                      event = eventReader.nextEvent();
-                      entry.name =event.asCharacters().getData();
-                      continue;
-                  }
-              }
+            if (event.isStartElement()) {
               if (event.asStartElement().getName().getLocalPart()
-                      .equals(Data.AGE.name())) {
-                  event = eventReader.nextEvent();
-                  entry.age =Integer.parseInt(event.asCharacters().getData());
-                  continue;
+                  .equals(Data.NAME.name())) {
+                event = eventReader.nextEvent();
+                entry.name = event.asCharacters().getData();
+                continue;
               }
+            }
+            if (event.asStartElement().getName().getLocalPart()
+                .equals(Data.AGE.name())) {
+              event = eventReader.nextEvent();
+              entry.age = Integer.parseInt(event.asCharacters().getData());
+              continue;
+            }
           }
 
           if (event.isEndElement()) {
-              EndElement endElement = event.asEndElement();
-              if (endElement.getName().getLocalPart()
-              .equals(Data.ENTRY.name())) {
-                  entries.add(entry);
-              }
+            EndElement endElement = event.asEndElement();
+            if (endElement.getName().getLocalPart()
+                .equals(Data.ENTRY.name())) {
+              entries.add(entry);
+            }
           }
 
         }
 
-      }catch (FileNotFoundException e) {
+      } catch (FileNotFoundException e) {
         e.printStackTrace();
-      }catch (XMLStreamException e) {
+      } catch (XMLStreamException e) {
         e.printStackTrace();
       }
 
       return entries;
     }
 
-  public String getAllAsHTMLTable(List<Entry> entries){
-    StringBuilder htmlOut = new StringBuilder("<table>");
-    htmlOut.append("<tr><th>Name</th><th>Age</th></tr>");
-    if(entries == null || entries.size() == 0){
-      htmlOut.append("<tr><td>No entries yet.</td></tr>");
-    }else{
-      for(Entry entry: entries){
-         htmlOut.append("<tr><td>"+entry.name+"</td><td>"+entry.age+"</td></tr>");
+    public String getAllAsHTMLTable(List<Entry> entries) {
+      StringBuilder htmlOut = new StringBuilder("<table>");
+      htmlOut.append("<tr><th>Name</th><th>Age</th></tr>");
+      if (entries == null || entries.size() == 0) {
+        htmlOut.append("<tr><td>No entries yet.</td></tr>");
+      } else {
+        for (Entry entry : entries) {
+          htmlOut.append("<tr><td>" + entry.name + "</td><td>" + entry.age + "</td></tr>");
+        }
       }
+      htmlOut.append("</table>");
+      return htmlOut.toString();
     }
-    htmlOut.append("</table>");
-    return htmlOut.toString();
+
   }
 
-
-}
-
-  /** *****************************************************
-   *  Overrides HttpServlet's doPost().
-   *  Converts the values in the form, performs the operation
-   *  indicated by the submit button, and sends the results
-   *  back to the client.
-  ********************************************************* */
+  /**
+   * *****************************************************
+   * Overrides HttpServlet's doPost().
+   * Converts the values in the form, performs the operation
+   * indicated by the submit button, and sends the results
+   * back to the client.
+   */
   @Override
-  public void doPost (HttpServletRequest request, HttpServletResponse response)
-     throws ServletException, IOException
-  {
-     String name = request.getParameter(Data.NAME.name());
-     String rawAge = request.getParameter(Data.AGE.name());
-     Integer age = null;
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    String name = request.getParameter(Data.NAME.name());
+    String rawAge = request.getParameter(Data.AGE.name());
+    Integer age = null;
 
-     String error = "";
-     if(name == null){
-       error= "<li>Name is required</li>";
-       name = "";
-     }
+    String error = "";
+    if (name == null) {
+      error = "<li>Name is required</li>";
+      name = "";
+    }
 
-     if(rawAge == null){
-       error+= "<li>Age is required.<li>";
-       rawAge = "";
-     }else{
-          try{
-            age = Integer.parseInt(rawAge);
-            if(age<1){
-                error+= "<li>Age must be an integer greater than 0.</li>";
-                rawAge = "";
-            }else{
-              if(age>150){
-                  error+= "<li>Age must be an integer less than 150.</li>";
-                  rawAge = "";
-              }
-            }
-          }catch (Exception e) {
-            error+= "<li>Age must be an integer greater than 0.</li>";
+    if (rawAge == null) {
+      error += "<li>Age is required.<li>";
+      rawAge = "";
+    } else {
+      try {
+        age = Integer.parseInt(rawAge);
+        if (age < 1) {
+          error += "<li>Age must be an integer greater than 0.</li>";
+          rawAge = "";
+        } else {
+          if (age > 150) {
+            error += "<li>Age must be an integer less than 150.</li>";
             rawAge = "";
           }
-     }
+        }
+      } catch (Exception e) {
+        error += "<li>Age must be an integer greater than 0.</li>";
+        rawAge = "";
+      }
+    }
 
-     response.setContentType("text/html");
-     PrintWriter out = response.getWriter();
+    response.setContentType("text/html");
+    PrintWriter out = response.getWriter();
 
-     if (error.length() == 0){
-       EntryManager entryManager = new EntryManager();
-       entryManager.setFilePath(RESOURCE_FILE);
-       List<Entry> newEntries= null;
-       try{
-         newEntries=entryManager.save(name, age);
-       }catch(FileNotFoundException e){
-         e.printStackTrace();
-          error+= "<li>Could not save entry.</li>";
-       }
-       catch(XMLStreamException e){
-         e.printStackTrace();
-          error+= "<li>Could not save entry.</li>";
-       }
+    if (error.length() == 0) {
+      EntryManager entryManager = new EntryManager();
+      entryManager.setFilePath(RESOURCE_FILE);
+      List<Entry> newEntries = null;
+      try {
+        newEntries = entryManager.save(name, age);
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+        error += "<li>Could not save entry.</li>";
+      } catch (XMLStreamException e) {
+        e.printStackTrace();
+        error += "<li>Could not save entry.</li>";
+      }
 
+      printHead(out);
+      if (newEntries == null) {
+        error += "<li>Could not save entry.</li>";
+        printBody(out, name, rawAge, error);
+      } else {
+        printResponseBody(out, entryManager.getAllAsHTMLTable(newEntries));
+      }
 
-       printHead(out);
-       if(newEntries ==  null){
-         error+= "<li>Could not save entry.</li>";
-         printBody(out, name, rawAge, error);
-       }else{
-         printResponseBody(out, entryManager.getAllAsHTMLTable(newEntries));
-       }
-
-       printTail(out);
-     }else{
-       printHead(out);
-       printBody(out, name, rawAge, error);
-       printTail(out);
-     }
-
+      printTail(out);
+    } else {
+      printHead(out);
+      printBody(out, name, rawAge, error);
+      printTail(out);
+    }
 
   }
 
-  /** *****************************************************
-   *  Overrides HttpServlet's doGet().
-   *  Prints an HTML page with a blank form.
-  ********************************************************* */
+  /**
+   * *****************************************************
+   * Overrides HttpServlet's doGet().
+   * Prints an HTML page with a blank form.
+   */
   @Override
-  public void doGet (HttpServletRequest request, HttpServletResponse response)
-         throws ServletException, IOException{
-     response.setContentType("text/html");
-     PrintWriter out = response.getWriter();
-     printHead(out);
-     printBody(out, "", "", "");
-     printTail(out);
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    response.setContentType("text/html");
+    PrintWriter out = response.getWriter();
+    printHead(out);
+    printBody(out, "", "", "");
+    printTail(out);
   }
 
-  /** *****************************************************
-   *  Prints the <head> of the HTML page, no <body>.
-  ********************************************************* */
-  private void printHead (PrintWriter out){
-     out.println("<html>");
-     out.println("");
-     out.println("<head>");
-     out.println("<title>XML File Persistence Example</title>");
-     // Put the focus in the name field
-     out.println ("<script>");
-     out.println ("  function setFocus(){");
-     out.println ("    document.persist2file.NAME.focus();");
-     out.println ("  }");
-     out.println ("</script>");
-     out.println("</head>");
-     out.println("");
+  /**
+   * *****************************************************
+   * Prints the <head> of the HTML page, no <body>.
+   */
+  private void printHead(PrintWriter out) {
+    out.println("<html>");
+    out.println("");
+    out.println("<head>");
+    out.println("<title>XML File Persistence Example</title>");
+    // Put the focus in the name field
+    out.println("<script>");
+    out.println("  function setFocus(){");
+    out.println("    document.persist2file.NAME.focus();");
+    out.println("  }");
+    out.println("</script>");
+    out.println("</head>");
+    out.println("");
   }
 
-  /** *****************************************************
-   *  Prints the <BODY> of the HTML page
-  ********************************************************* */
-  private void printBody (
-   PrintWriter out, String name, String age, String error){
+  /**
+   * *****************************************************
+   * Prints the <BODY> of the HTML page
+   */
+  private void printBody(
+      PrintWriter out, String name, String age, String error) {
     out.println("<body onLoad=\"setFocus()\">");
     out.println("<p>");
     out.println(
-      "A simple example that demonstrates how to persist data to a XML file");
+        "A simple example that demonstrates how to persist data to a XML file");
     out.println("</p>");
 
-    if(error != null && error.length() > 0){
+    if (error != null && error.length() > 0) {
       out.println(
-      "<p style=\"color:red;\">Please correct the following and resubmit.</p>"
-        );
+          "<p style=\"color:red;\">Please correct the following and resubmit.</p>");
       out.println("<ol>");
       out.println(error);
       out.println("</ol>");
     }
 
-    out.print  ("<form name=\"persist2file\" method=\"post\"");
-    out.println(" action=\""+Domain+Path+Servlet+"\">");
+    out.print("<form name=\"persist2file\" method=\"post\"");
+    out.println(" action=\"" + Domain + Path + Servlet + "\">");
     out.println("");
     out.println(" <table>");
     out.println("  <tr>");
     out.println("   <td>Name:</td>");
-    out.println("   <td><input type=\"text\" name=\""+Data.NAME.name()
-    +"\" value=\""+name+"\" size=30 required></td>");
+    out.println("   <td><input type=\"text\" name=\"" + Data.NAME.name()
+        + "\" value=\"" + name + "\" size=30 required></td>");
     out.println("  </tr>");
     out.println("  <tr>");
     out.println("   <td>Age:</td>");
-    out.println("   <td><input type=\"text\"  name=\""+Data.AGE.name()
-    +"\" oninput=\"this.value=this.value.replace(/[^0-9]/g,'');\" value=\""
-    +age+"\" size=3 required></td>");
+    out.println("   <td><input type=\"text\"  name=\"" + Data.AGE.name()
+        + "\" oninput=\"this.value=this.value.replace(/[^0-9]/g,'');\" value=\""
+        + age + "\" size=3 required></td>");
     out.println("  </tr>");
     out.println(" </table>");
     out.println(" <br>");
     out.println(" <br>");
     out.println(" <input type=\"submit\" value=\"" + OperationAdd
-    + "\" name=\"Operation\">");
+        + "\" name=\"Operation\">");
     out.println(" <input type=\"reset\" value=\"Reset\" name=\"reset\">");
     out.println("</form>");
     out.println("");
     out.println("</body>");
   }
 
-  /** *****************************************************
-   *  Prints the <BODY> of the HTML page with persisted entries
-  ********************************************************* */
-  private void printResponseBody (PrintWriter out, String tableString){
+  /**
+   * *****************************************************
+   * Prints the <BODY> of the HTML page with persisted entries
+   */
+  private void printResponseBody(PrintWriter out, String tableString) {
     out.println("<body>");
     out.println("<p>");
     out.println("A simple example that shows entries persisted on a JSON file");
@@ -381,11 +383,12 @@ public class XMLPersistenceServlet extends HttpServlet{
     out.println("</body>");
   }
 
-  /** *****************************************************
-   *  Prints the bottom of the HTML page.
-  ********************************************************* */
-  private void printTail (PrintWriter out){
-     out.println("");
-     out.println("</html>");
+  /**
+   * *****************************************************
+   * Prints the bottom of the HTML page.
+   */
+  private void printTail(PrintWriter out) {
+    out.println("");
+    out.println("</html>");
   }
 }
