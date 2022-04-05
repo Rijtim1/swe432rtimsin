@@ -47,15 +47,13 @@ public void doPost (HttpServletRequest request, HttpServletResponse response)
 {
    // Float rslt   = new Float(0.0);
    String rslt = "";
-   Float lhsVal = new Float(0.0);
-   Float rhsVal = new Float(0.0);
    String operation = request.getParameter("Operation");
    String lhsStr = request.getParameter("LHS");
    String rhsStr = request.getParameter("RHS");
-   if ((lhsStr != null) && (lhsStr.length() > 0))
-      lhsVal = new Float(lhsStr);
-   if ((rhsStr != null) && (rhsStr.length() > 0))
-      rhsVal = new Float(rhsStr);
+   if ((lhsStr != null) && (lhsStr.length() > 0)) {
+   }
+   if ((rhsStr != null) && (rhsStr.length() > 0)) {
+   }
 
    if (operation.equals(OperationAdd))
    {
