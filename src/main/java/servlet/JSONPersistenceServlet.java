@@ -32,7 +32,6 @@ requires Gson in your pom.xml
 */
 import com.google.gson.Gson;
 
-
 @WebServlet(name = "JSONPersistence", urlPatterns = {"/json"})
 public class JSONPersistenceServlet extends HttpServlet{
   static enum Data {AGE, NAME};

@@ -11,6 +11,21 @@ package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+// twoButtons class
+// CONSTRUCTOR: no constructor specified (default)
+//
+// ***************  PUBLIC OPERATIONS  **********************************
+// public void doPost ()  --> prints a blank HTML page
+// public void doGet ()  --> prints a blank HTML page
+// private void PrintHead (PrintWriter out) --> Prints the HTML head section
+// private void PrintBody (PrintWriter out) --> Prints the HTML body with
+//              the form. Fields are blank.
+// private void PrintBody (PrintWriter out, String lhs, String rhs, String rslt)
+//              Prints the HTML body with the form.
+//              Fields are filled from the parameters.
+// private void PrintTail (PrintWriter out) --> Prints the HTML bottom
+//***********************************************************************
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

@@ -1,19 +1,21 @@
 // package popcorn;
 package servlet;
 
+//Import Servlet Libraries
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.WebServlet; // @WebServlet
+
 //Import Java Libraries
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
+import java.lang.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.gson.Gson;
 
 // Used in https://codesandbox.io/s/swe-432-react-popcorn-sales-k3b9i?file=/src/popcorn.js
 // Part of the popcorn Ajax example.

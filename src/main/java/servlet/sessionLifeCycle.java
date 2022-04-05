@@ -1,16 +1,13 @@
 // From "Professional Java Server Programming", Patzer et al.,
 package servlet;
-// Import Java Libraries
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Date;
-
-import javax.servlet.ServletException;
+// Import Servlet Libraries
+import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
+
+// Import Java Libraries
+import java.io.*;
+import java.util.Date;
 
 @WebServlet(name = "lifeCycle", urlPatterns = {"/lifeCycle"})
 
